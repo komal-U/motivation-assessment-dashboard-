@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motivation & Goal Assessment | Gandhi Fellowship</title>
+<style>
+:root{--navy:#15263d;--blue:#315f9d;--teal:#198b83;--gold:#d89b32;--ink:#253247;--muted:#66758a;--bg:#f3f6fa;--line:#dfe6ef;--white:#fff;--soft:#eaf1f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5}
+header{background:linear-gradient(120deg,#14263e,#234d72);color:white;padding:28px max(18px,calc((100% - 1180px)/2)) 26px}
+.brand{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:.8;font-weight:700}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}.hero h1{font-size:clamp(25px,4vw,38px);margin:8px 0 6px;line-height:1.15}.hero p{margin:0;color:#d8e4f1;max-width:700px}.tag{border:1px solid #ffffff55;border-radius:30px;padding:8px 13px;font-size:12px;white-space:nowrap}
+main{max-width:1180px;margin:24px auto;padding:0 18px 42px}.notice{background:#fff7e8;border:1px solid #f0d7a4;padding:12px 15px;border-radius:10px;font-size:13px;color:#684d1b;margin-bottom:18px}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px}.panel,.card{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 3px 12px #20355008}.panel h2,.section-title{font-size:17px;margin:0 0 14px;color:var(--navy)}label{display:block;font-weight:650;font-size:13px;margin:13px 0 6px}select,input,textarea{font:inherit;width:100%;border:1px solid #ccd6e2;border-radius:8px;padding:10px 11px;background:#fff;color:var(--ink);min-height:42px}textarea{min-height:72px;resize:vertical}.hint{font-size:12px;color:var(--muted);margin-top:5px}.btn{border:0;border-radius:8px;padding:11px 14px;font-weight:700;cursor:pointer;min-height:42px}.primary{background:var(--blue);color:white}.secondary{background:#edf2f8;color:var(--navy)}.danger{background:#fff0ef;color:#9b342e}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.memberlist{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.memberchip{border:1px solid var(--line);border-radius:20px;padding:6px 10px;font-size:12px;background:#fff;cursor:pointer}.memberchip.active{background:var(--soft);border-color:var(--blue);color:var(--blue);font-weight:700}
+.content{min-width:0}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.stat{background:white;border:1px solid var(--line);border-radius:12px;padding:14px}.stat .label{font-size:12px;color:var(--muted)}.stat strong{font-size:25px;display:block;color:var(--navy);margin-top:3px}.stat small{color:var(--muted);font-size:11px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:12px;gap:10px}.track{height:8px;background:#edf1f6;border-radius:20px;overflow:hidden;margin-top:5px}.fill{height:100%;border-radius:20px;background:var(--teal)}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.section-head h2{margin:0}.small{font-size:12px;color:var(--muted)}.assessment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.assessment-card{border:1px solid var(--line);border-radius:10px;padding:12px}.assessment-card h3{font-size:13px;margin:0 0 8px}.assessment-card p{font-size:12px;color:var(--muted);margin:0 0 9px}.assessment-card select{font-size:13px;padding:8px;min-height:38px}
+.goal-item{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0;padding:10px;border:1px solid var(--line);border-radius:9px}.goal-item .full{grid-column:1/-1}.goal-item label{margin:0 0 4px}.goal-item input,.goal-item select{min-height:38px;padding:7px;font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}.empty{padding:18px;text-align:center;color:var(--muted);background:#f8fafc;border-radius:10px;font-size:13px}.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#e8f6f2;color:#176a5f;font-size:11px;font-weight:700}.saved-list{font-size:12px;color:var(--muted);margin-top:8px;word-break:break-word}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){main{padding:0 12px 30px}.two{grid-template-columns:1fr}.assessment-grid{grid-template-columns:1fr}.goal-item{grid-template-columns:1fr}.goal-item .full{grid-column:auto}.hero h1{font-size:27px}}
+@media print{body{background:#fff}header{padding:18px;color:#000;background:#fff;border-bottom:2px solid #333}.hero p{color:#333}.tag,.btn,.panel{display:none!important}.layout{display:block}.stats{grid-template-columns:repeat(4,1fr)}main{margin:0;max-width:none}.card,.stat{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">Gandhi Fellowship · Batch 19</div>
+ <div class="hero"><div><h1>Motivation & Goal Assessment</h1><p>A reflective space to identify what we need to start, stop and complete — and turn intention into action.</p></div><div class="tag">GROUP REFLECTION · WORKSHEET 1.2</div></div>
+</header>
+<main>
+ <div class="notice"><strong>Privacy & sharing note:</strong> This dashboard runs in your browser. GitHub Pages can display the website, but it does not automatically collect or sync each fellow’s answers. For group sharing, each person can export their assessment JSON and share it with the group, or you can connect a shared form/database later. Avoid entering sensitive personal information.</div>
+ <div class="layout">
+  <aside class="panel">
+   <h2>Fellow assessment</h2>
+   <label for="member">Select group member</label>
+   <select id="member"></select>
+   <div class="hint">Vishwas is listed as PL; the remaining eight are fellows.</div>
+   <label for="role">Role</label><input id="role" readonly>
+   <label for="date">Assessment date</label><input id="date" type="date">
+   <label for="motivation">Current motivation (1–5)</label>
+   <select id="motivation"><option value="1">1 — Very low</option><option value="2">2 — Low</option><option value="3" selected>3 — Moderate</option><option value="4">4 — High</option><option value="5">5 — Very high</option></select>
+   <label for="reflection">Reflection / context</label><textarea id="reflection" placeholder="What is influencing your motivation right now?"></textarea>
+   <div class="btnrow"><button class="btn primary" id="save">Save on this device</button><button class="btn secondary" id="exportOne">Export member JSON</button></div>
+   <div class="btnrow"><button class="btn secondary" id="exportAll">Export all saved data</button><button class="btn secondary" id="print">Print / Save PDF</button></div>
+   <label for="importFile">Import shared assessment JSON</label><input type="file" id="importFile" accept=".json,application/json">
+   <div class="hint">Import a JSON file shared by a group member to view their assessment on this device.</div>
+   <div id="status" class="saved-list" aria-live="polite">No assessment saved yet.</div>
+  </aside>
+  <section class="content">
+   <div class="stats">
+    <div class="stat"><span class="label">Group members</span><strong>9</strong><small>1 PL + 8 fellows</small></div>
+    <div class="stat"><span class="label">Start goals</span><strong id="startCount">0</strong><small>Actions to begin</small></div>
+    <div class="stat"><span class="label">Stop habits</span><strong id="stopCount">0</strong><small>Patterns to reduce</small></div>
+    <div class="stat"><span class="label">Complete goals</span><strong id="completeCount">0</strong><small>Goals to finish</small></div>
+   </div>
+   <div class="two">
+    <div class="card"><h2 class="section-title">Selected fellow snapshot</h2><div id="snapshot" class="empty">Select a member and complete their reflection.</div></div>
+    <div class="card"><h2 class="section-title">Group completion overview</h2><div id="overview"></div><p class="small">Only assessments saved/imported on this device are counted.</p></div>
+   </div>
+   <div class="card" style="margin-bottom:16px">
+    <div class="section-head"><h2 class="section-title">1. Start · Stop · Complete</h2><span class="pill">5 entries per category</span></div>
+    <p class="small">Write specific, realistic behaviours. Example: start waking up earlier; stop postponing tasks; complete an online course.</p>
+    <div class="assessment-grid" id="goals"></div>
+   </div>
+   <div class="card" style="margin-bottom:16px">
+    <h2 class="section-title">2. One most important goal</h2>
+    <label for="mainGoal">Goal / task that matters most</label><input id="mainGoal" placeholder="My most important goal is…">
+    <div class="two">
+     <div><label for="why">Why does it matter to me?</label><textarea id="why" placeholder="Connect it to your values, growth or purpose."></textarea></div>
+     <div><label for="barrier">What is the main barrier?</label><textarea id="barrier" placeholder="Time, fear, unclear steps, distractions…"></textarea></div>
+    </div>
+    <div class="two">
+     <div><label for="firstStep">My first small step (within 24 hours)</label><input id="firstStep" placeholder="A concrete action I can take"></div>
+     <div><label for="support">Support / accountability I need</label><input id="support" placeholder="Person, guidance, reminder, resources"></div>
+    </div>
+    <label for="review">Review date</label><input id="review" type="date">
+   </div>
+   <div class="card">
+    <div class="section-head"><h2 class="section-title">3. Group insights</h2><button class="btn secondary" id="clearMember">Clear selected member</button></div>
+    <div id="insights" class="empty">Save an assessment to generate reflection prompts.</div>
+   </div>
+  </section>
+ </div>
+ <footer>Designed for group reflection · Motivation is a starting point; habits, support and consistent action sustain progress.</footer>
+</main>
+<script>
+(function(){
+const members=[["Vishwas","PL"],["Manjeet","Fellow"],["Chakrdhar","Fellow"],["Rajdeep","Fellow"],["Dinesh","Fellow"],["Shivam","Fellow"],["Ekta","Fellow"],["Probali","Fellow"],["Komal","Fellow"]];
+const cats=[["start","Goal/Task to START","Begin a useful action"],["stop","Goal/Task to STOP","Reduce an unhelpful habit"],["complete","Goal/Task to COMPLETE","Finish an important task"]];
+const $=id=>document.getElementById(id);
+const member=$("member");
+members.forEach(([name,role])=>{let o=document.createElement("option");o.value=name;o.textContent=name+" — "+role;member.appendChild(o)});
+let active="Vishwas", saved={};
+try{saved=JSON.parse(localStorage.getItem("motivationAssessmentGroup")||"{}")}catch(e){saved={}}
+function buildGoals(){const root=$("goals");root.innerHTML="";cats.forEach(([key,title,sub])=>{const box=document.createElement("div");box.className="assessment-card";box.innerHTML=`<h3>${title}</h3><p>${sub} · 5 entries</p>`;for(let i=0;i<5;i++){let wrap=document.createElement("div");wrap.style.margin="9px 0";wrap.innerHTML=`<label for="${key}${i}">${i+1}. Goal / task</label><input id="${key}${i}" data-cat="${key}" data-index="${i}" placeholder="${["Example: wake up early","Example: reduce distractions","Example: finish a course"][cats.findIndex(c=>c[0]===key)]}">`;box.appendChild(wrap)}root.appendChild(box)})}
+function readForm(){const goals={start:[],stop:[],complete:[]};document.querySelectorAll("[data-cat]").forEach(el=>goals[el.dataset.cat][+el.dataset.index]=el.value.trim());return {member:active,role:members.find(m=>m[0]===active)[1],date:$("date").value,motivation:+$("motivation").value,reflection:$("reflection").value,goals,mainGoal:$("mainGoal").value,why:$("why").value,barrier:$("barrier").value,firstStep:$("firstStep").value,support:$("support").value,review:$("review").value,updatedAt:new Date().toISOString()}}
+function fillForm(d){d=d||{};$("role").value=d.role||members.find(m=>m[0]===active)[1];$("date").value=d.date||new Date().toISOString().slice(0,10);$("motivation").value=d.motivation||3;$("reflection").value=d.reflection||"";cats.forEach(([k])=>{for(let i=0;i<5;i++){let el=$(k+i);if(el)el.value=(d.goals&&d.goals[k]&&d.goals[k][i])||""}});["mainGoal","why","barrier","firstStep","support","review"].forEach(k=>$(k).value=d[k]||"");render()}
+function render(){const d=readForm();let counts={start:d.goals.start.filter(Boolean).length,stop:d.goals.stop.filter(Boolean).length,complete:d.goals.complete.filter(Boolean).length};$("startCount").textContent=counts.start;$("stopCount").textContent=counts.stop;$("completeCount").textContent=counts.complete;
+const savedCount=Object.keys(saved).length;const mscore=d.motivation;$("snapshot").className="";$("snapshot").innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><strong style="font-size:20px">${active}</strong><span class="pill">${d.role}</span></div><p class="small">Motivation rating</p><div style="font-size:25px;color:var(--blue);font-weight:800">${mscore}/5</div><div class="track"><div class="fill" style="width:${mscore*20}%"></div></div><p>${d.mainGoal?`<strong>Priority:</strong> ${escapeHtml(d.mainGoal)}`:"No priority goal entered yet."}</p><p class="small">${d.reflection?escapeHtml(d.reflection):"Add a short reflection to make this assessment meaningful."}</p>`;
+const filled=Object.keys(saved).length;const bars=[["Assessments saved",filled,9],["Group not yet saved",9-filled,9]];$("overview").innerHTML=bars.map(([label,val,max])=>`<div class="barrow"><div class="barlabel"><span>${label}</span><strong>${val}/${max}</strong></div><div class="track"><div class="fill" style="width:${Math.min(100,val/max*100)}%"></div></div></div>`).join("");
+const all=Object.values(saved);let total={start:0,stop:0,complete:0};all.forEach(a=>cats.forEach(([k])=>total[k]+=(a.goals?.[k]||[]).filter(Boolean).length));$("insights").className="";$("insights").innerHTML=`<p><strong>Saved group reflections:</strong> ${filled} of 9</p><p><strong>Shared goal themes captured:</strong> ${total.start} start · ${total.stop} stop · ${total.complete} complete entries across saved assessments.</p><p><strong>Reflection prompt:</strong> What is one small step each person can take this week, and how will the group support accountability without judgement?</p><p class="small">These are descriptive counts, not a ranking of people. Motivation ratings are self-reported.</p>`;
+$("status").textContent=saved[active]?"Saved locally · Last saved: "+new Date(saved[active].updatedAt||Date.now()).toLocaleString():"This member has not been saved on this device.";renderChips()}
+function renderChips(){/* member selector is the main navigation */}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function download(obj,name){const blob=new Blob([JSON.stringify(obj,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function save(){const d=readForm();saved[active]=d;localStorage.setItem("motivationAssessmentGroup",JSON.stringify(saved));render();$("status").textContent="Saved on this device. Export JSON to share with the group."}
+member.addEventListener("change",()=>{active=member.value;fillForm(saved[active]||{})});
+$("save").addEventListener("click",save);
+$("exportOne").addEventListener("click",()=>download(readForm(),"motivation-"+active.toLowerCase()+".json"));
+$("exportAll").addEventListener("click",()=>download({project:"Motivation & Goal Assessment",members:saved,exportedAt:new Date().toISOString()},"motivation-group-assessments.json"));
+$("print").addEventListener("click",()=>window.print());
+$("clearMember").addEventListener("click",()=>{if(confirm("Clear this member's saved assessment from this device?")){delete saved[active];localStorage.setItem("motivationAssessmentGroup",JSON.stringify(saved));fillForm({});}});
+$("importFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.members){Object.assign(saved,data.members)}else if(data.member){saved[data.member]=data}localStorage.setItem("motivationAssessmentGroup",JSON.stringify(saved));if(saved[active])fillForm(saved[active]);else render();$("status").textContent="Import complete. Saved assessments loaded on this device."}catch(err){$("status").textContent="Could not import file. Please choose a valid exported JSON file."}e.target.value=""});
+document.querySelectorAll("input,textarea,select").forEach(el=>{if(!["member","importFile"].includes(el.id))el.addEventListener("input",render)});
+buildGoals();active=member.value;fillForm(saved[active]||{});
+})();
+</script>
+</body>
+</html>
