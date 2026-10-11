@@ -1,36 +1,465 @@
-onsistent action sustain progress.</footer>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gandhi Fellowship Motivation Dashboard</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5fb;color:#18304d}
+header{background:linear-gradient(135deg,#102744,#1976b9);color:white;text-align:center;padding:28px 15px}
+header h1{font-size:clamp(24px,5vw,36px);margin:0 0 10px}
+header p{line-height:1.5}
+.container{max-width:1100px;margin:auto;padding:16px}
+.card{background:white;padding:20px;border-radius:16px;margin:16px 0;box-shadow:0 5px 18px #173b6010}
+label{display:block;font-weight:bold;font-size:14px;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccd7e5;border-radius:8px;font:inherit}
+textarea{min-height:75px;resize:vertical}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 15px;font-weight:bold;background:#1769aa;color:white}
+button:hover{opacity:.88}
+.nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0}
+.circle{width:100%;max-width:190px;aspect-ratio:1;border-radius:50%;margin:auto;border:5px solid white;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white;padding:12px;box-shadow:0 5px 15px #0001}
+.circle strong{font-size:15px}
+.circle span{font-size:12px;line-height:1.4;margin-top:8px}
+.blue{background:linear-gradient(135deg,#1264a3,#35a4d5)}
+.orange{background:linear-gradient(135deg,#dc6027,#f5a23c)}
+.purple{background:linear-gradient(135deg,#62449a,#a18ada)}
+.green{background:linear-gradient(135deg,#207448,#53b783)}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.item{padding:10px;background:#f8fbff;border:1px solid #dce5ef;border-radius:9px;margin:8px 0}
+.question{display:grid;grid-template-columns:minmax(150px,1fr) repeat(5,35px);gap:4px;align-items:center;border-bottom:1px solid #ddd;padding:12px 0}
+.question p{font-size:13px;line-height:1.5;margin:0}
+.radio{display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:12px}
+.radio input{width:16px;height:16px;margin:5px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.stat{background:#edf5fc;padding:14px;border-radius:10px}
+.stat strong{display:block;color:#1769aa;font-size:23px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
+.secondary{background:#e5edf7;color:#173451}
+.danger{background:#b63838}
+.small{font-size:13px;color:#66788e;line-height:1.6}
+footer{text-align:center;padding:25px;color:#64748b;font-size:12px}
+@media(max-width:600px){
+ .nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .circle{max-width:155px}
+ .circle strong{font-size:13px}
+ .container{padding:10px}
+ .card{padding:14px}
+ .question{grid-template-columns:minmax(95px,1fr) repeat(5,27px);gap:2px}
+ .question p{font-size:11px}
+ .radio input{width:14px;height:14px}
+}
+@media print{
+ .nav,.actions,.toolbar{display:none!important}
+ .hidden{display:block!important}
+ body{background:white}
+ .card{box-shadow:none;border:1px solid #ddd}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Motivation Assessment Dashboard</h1>
+<p>Gandhi Fellowship | Personal Reflection and Growth</p>
+<p>Three assessments. One dashboard. One step towards growth.</p>
+</header>
+
+<div class="container">
+
+<div class="card toolbar">
+<label>Select Member
+<select id="member">
+<option>Vishwas — PL</option>
+<option>Manjeet — Fellow</option>
+<option>Chakrdhar — Fellow</option>
+<option>Rajdeep — Fellow</option>
+<option>Dinesh — Fellow</option>
+<option>Shivam — Fellow</option>
+<option>Ekta — Fellow</option>
+<option>Probali — Fellow</option>
+<option>Komal — Fellow</option>
+</select>
+</label>
+
+<label>Assessment Date
+<input type="date" id="date">
+</label>
+
+<button onclick="save()">Save Answers</button>
+</div>
+
+<div class="nav">
+<button class="circle blue" onclick="openTab('a1')">
+<strong>ASSESSMENT 1</strong>
+<span>Start · Stop · Complete<br>Important Goal</span>
+</button>
+
+<button class="circle orange" onclick="openTab('a2')">
+<strong>ASSESSMENT 2</strong>
+<span>Strongest and Weakest Motivation<br>See-saw</span>
+</button>
+
+<button class="circle purple" onclick="openTab('a3')">
+<strong>ASSESSMENT 3</strong>
+<span>Self-Motivation Questionnaire<br>Score out of 60</span>
+</button>
+
+<button class="circle green" onclick="openTab('summary')">
+<strong>MY SUMMARY</strong>
+<span>View Answers<br>Export and Print</span>
+</button>
+</div>
+
+<!-- ASSESSMENT 1 -->
+<section id="a1" class="card">
+<h2>Assessment 1: Start, Stop, Complete</h2>
+<p class="small">List five things in each category. Then identify your most important goal.</p>
+
+<div class="three">
+<div>
+<h3 style="color:#1769aa">START</h3>
+<div id="start"></div>
+</div>
+<div>
+<h3 style="color:#d76a2e">STOP</h3>
+<div id="stop"></div>
+</div>
+<div>
+<h3 style="color:#278254">COMPLETE</h3>
+<div id="complete"></div>
+</div>
+</div>
+
+<label>My Most Important Goal/Task</label>
+<textarea id="goal" placeholder="What is the one goal I want to achieve?"></textarea>
+
+<div class="grid">
+<div>
+<label>Why is this goal important to me?</label>
+<textarea id="why"></textarea>
+</div>
+<div>
+<label>What might prevent me from achieving it?</label>
+<textarea id="barrier"></textarea>
+</div>
+<div>
+<label>My first action within 24 hours</label>
+<textarea id="first"></textarea>
+</div>
+<div>
+<label>What support do I need?</label>
+<textarea id="support"></textarea>
+</div>
+</div>
+
+<label>Goal Review Date</label>
+<input type="date" id="review">
+</section>
+
+<!-- ASSESSMENT 2 -->
+<section id="a2" class="card hidden">
+<h2>Assessment 2: Motivation See-saw</h2>
+<p class="small">Reflect on the strongest motivation helping you achieve your goal and the weakest motivation or factor holding you back.</p>
+
+<div class="grid">
+<div>
+<label>My Strongest Motivation</label>
+<textarea id="strong" placeholder="What helps me keep moving towards my goal?"></textarea>
+</div>
+<div>
+<label>My Weakest Motivation / Factor Holding Me Back</label>
+<textarea id="weak" placeholder="What reduces my motivation or creates difficulties?"></textarea>
+</div>
+<div>
+<label>Evidence of My Strongest Motivation</label>
+<textarea id="evidence"></textarea>
+</div>
+<div>
+<label>How Can I Strengthen My Weakest Motivation?</label>
+<textarea id="strengthen"></textarea>
+</div>
+</div>
+
+<label>One Action to Rebalance My See-saw</label>
+<textarea id="action"></textarea>
+</section>
+
+<!-- ASSESSMENT 3 -->
+<section id="a3" class="card hidden">
+<h2>Assessment 3: Self-Motivation Questionnaire</h2>
+<p class="small">
+Choose one score for every statement:
+1 = Not at all | 2 = Rarely | 3 = Sometimes | 4 = Often | 5 = Very often.
+Answer honestly according to how you actually are.
+</p>
+
+<div class="stats">
+<div class="stat"><strong id="total">0 / 60</strong>Total Score</div>
+<div class="stat"><strong id="band">Not scored</strong>Score Range</div>
+<div class="stat"><strong id="answered">0 / 12</strong>Answered</div>
+</div>
+
+<div id="questions"></div>
+
+<label>What did I learn from my score?</label>
+<textarea id="learning"></textarea>
+
+<label>One motivation habit I will improve</label>
+<textarea id="improve"></textarea>
+
+<p class="small">
+<b>Worksheet interpretation:</b><br>
+44–60: High self-motivation<br>
+28–43: Moderate self-motivation<br>
+12–27: Low self-motivation<br>
+This is a reflection exercise, not a clinical assessment.
+</p>
+</section>
+
+<!-- SUMMARY -->
+<section id="summary" class="card hidden">
+<h2>My Assessment Summary</h2>
+
+<div class="stats">
+<div class="stat"><strong id="sGoal">—</strong>Goal</div>
+<div class="stat"><strong id="sMotivation">—</strong>See-saw</div>
+<div class="stat"><strong id="sScore">—</strong>Score</div>
+</div>
+
+<div id="report"></div>
+
+<div class="actions">
+<button onclick="exportOne()">Export Member Answers</button>
+<button onclick="exportAll()" class="secondary">Export All Saved Data</button>
+<button onclick="document.getElementById('importFile').click()" class="secondary">Import JSON</button>
+<input id="importFile" type="file" accept=".json" class="hidden" onchange="importJSON(event)">
+<button onclick="window.print()" class="secondary">Print / Save PDF</button>
+<button onclick="clearData()" class="danger">Clear Member Answers</button>
+</div>
+
+<p class="small">
+Privacy: Answers are saved in this browser only. They do not automatically appear on other people's devices. A shared database or form service is needed for live group-wide responses. Avoid entering sensitive personal information.
+</p>
+</section>
+
+<div class="actions">
+<button onclick="save()">Save Answers</button>
+<button onclick="openTab('summary')" class="secondary">View Summary</button>
+</div>
+
+</div>
+
+<footer>Gandhi Fellowship | Motivation, Discipline, Reflection and Growth</footer>
+
 <script>
-(function(){
-const members=[["Vishwas","PL"],["Manjeet","Fellow"],["Chakrdhar","Fellow"],["Rajdeep","Fellow"],["Dinesh","Fellow"],["Shivam","Fellow"],["Ekta","Fellow"],["Probali","Fellow"],["Komal","Fellow"]];
-const cats=[["start","Goal/Task to START","Begin a useful action"],["stop","Goal/Task to STOP","Reduce an unhelpful habit"],["complete","Goal/Task to COMPLETE","Finish an important task"]];
-const $=id=>document.getElementById(id);
-const member=$("member");
-members.forEach(([name,role])=>{let o=document.createElement("option");o.value=name;o.textContent=name+" — "+role;member.appendChild(o)});
-let active="Vishwas", saved={};
-try{saved=JSON.parse(localStorage.getItem("motivationAssessmentGroup")||"{}")}catch(e){saved={}}
-function buildGoals(){const root=$("goals");root.innerHTML="";cats.forEach(([key,title,sub])=>{const box=document.createElement("div");box.className="assessment-card";box.innerHTML=`<h3>${title}</h3><p>${sub} · 5 entries</p>`;for(let i=0;i<5;i++){let wrap=document.createElement("div");wrap.style.margin="9px 0";wrap.innerHTML=`<label for="${key}${i}">${i+1}. Goal / task</label><input id="${key}${i}" data-cat="${key}" data-index="${i}" placeholder="${["Example: wake up early","Example: reduce distractions","Example: finish a course"][cats.findIndex(c=>c[0]===key)]}">`;box.appendChild(wrap)}root.appendChild(box)})}
-function readForm(){const goals={start:[],stop:[],complete:[]};document.querySelectorAll("[data-cat]").forEach(el=>goals[el.dataset.cat][+el.dataset.index]=el.value.trim());return {member:active,role:members.find(m=>m[0]===active)[1],date:$("date").value,motivation:+$("motivation").value,reflection:$("reflection").value,goals,mainGoal:$("mainGoal").value,why:$("why").value,barrier:$("barrier").value,firstStep:$("firstStep").value,support:$("support").value,review:$("review").value,updatedAt:new Date().toISOString()}}
-function fillForm(d){d=d||{};$("role").value=d.role||members.find(m=>m[0]===active)[1];$("date").value=d.date||new Date().toISOString().slice(0,10);$("motivation").value=d.motivation||3;$("reflection").value=d.reflection||"";cats.forEach(([k])=>{for(let i=0;i<5;i++){let el=$(k+i);if(el)el.value=(d.goals&&d.goals[k]&&d.goals[k][i])||""}});["mainGoal","why","barrier","firstStep","support","review"].forEach(k=>$(k).value=d[k]||"");render()}
-function render(){const d=readForm();let counts={start:d.goals.start.filter(Boolean).length,stop:d.goals.stop.filter(Boolean).length,complete:d.goals.complete.filter(Boolean).length};$("startCount").textContent=counts.start;$("stopCount").textContent=counts.stop;$("completeCount").textContent=counts.complete;
-const savedCount=Object.keys(saved).length;const mscore=d.motivation;$("snapshot").className="";$("snapshot").innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><strong style="font-size:20px">${active}</strong><span class="pill">${d.role}</span></div><p class="small">Motivation rating</p><div style="font-size:25px;color:var(--blue);font-weight:800">${mscore}/5</div><div class="track"><div class="fill" style="width:${mscore*20}%"></div></div><p>${d.mainGoal?`<strong>Priority:</strong> ${escapeHtml(d.mainGoal)}`:"No priority goal entered yet."}</p><p class="small">${d.reflection?escapeHtml(d.reflection):"Add a short reflection to make this assessment meaningful."}</p>`;
-const filled=Object.keys(saved).length;const bars=[["Assessments saved",filled,9],["Group not yet saved",9-filled,9]];$("overview").innerHTML=bars.map(([label,val,max])=>`<div class="barrow"><div class="barlabel"><span>${label}</span><strong>${val}/${max}</strong></div><div class="track"><div class="fill" style="width:${Math.min(100,val/max*100)}%"></div></div></div>`).join("");
-const all=Object.values(saved);let total={start:0,stop:0,complete:0};all.forEach(a=>cats.forEach(([k])=>total[k]+=(a.goals?.[k]||[]).filter(Boolean).length));$("insights").className="";$("insights").innerHTML=`<p><strong>Saved group reflections:</strong> ${filled} of 9</p><p><strong>Shared goal themes captured:</strong> ${total.start} start · ${total.stop} stop · ${total.complete} complete entries across saved assessments.</p><p><strong>Reflection prompt:</strong> What is one small step each person can take this week, and how will the group support accountability without judgement?</p><p class="small">These are descriptive counts, not a ranking of people. Motivation ratings are self-reported.</p>`;
-$("status").textContent=saved[active]?"Saved locally · Last saved: "+new Date(saved[active].updatedAt||Date.now()).toLocaleString():"This member has not been saved on this device.";renderChips()}
-function renderChips(){/* member selector is the main navigation */}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function download(obj,name){const blob=new Blob([JSON.stringify(obj,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function save(){const d=readForm();saved[active]=d;localStorage.setItem("motivationAssessmentGroup",JSON.stringify(saved));render();$("status").textContent="Saved on this device. Export JSON to share with the group."}
-member.addEventListener("change",()=>{active=member.value;fillForm(saved[active]||{})});
-$("save").addEventListener("click",save);
-$("exportOne").addEventListener("click",()=>download(readForm(),"motivation-"+active.toLowerCase()+".json"));
-$("exportAll").addEventListener("click",()=>download({project:"Motivation & Goal Assessment",members:saved,exportedAt:new Date().toISOString()},"motivation-group-assessments.json"));
-$("print").addEventListener("click",()=>window.print());
-$("clearMember").addEventListener("click",()=>{if(confirm("Clear this member's saved assessment from this device?")){delete saved[active];localStorage.setItem("motivationAssessmentGroup",JSON.stringify(saved));fillForm({});}});
-$("importFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.members){Object.assign(saved,data.members)}else if(data.member){saved[data.member]=data}localStorage.setItem("motivationAssessmentGroup",JSON.stringify(saved));if(saved[active])fillForm(saved[active]);else render();$("status").textContent="Import complete. Saved assessments loaded on this device."}catch(err){$("status").textContent="Could not import file. Please choose a valid exported JSON file."}e.target.value=""});
-document.querySelectorAll("input,textarea,select").forEach(el=>{if(!["member","importFile"].includes(el.id))el.addEventListener("input",render)});
-buildGoals();active=member.value;fillForm(saved[active]||{});
-})();
+const KEY="gandhi_motivation_dashboard_v1";
+
+const fields=[
+"date","goal","why","barrier","first","support","review",
+"strong","weak","evidence","strengthen","action","learning","improve"
+];
+
+const statements=[
+"I'm unsure of my ability to achieve the goals I set for myself.",
+"When working on my goals, I put in maximum effort and work even harder if I've suffered a setback.",
+"I regularly set goals and objectives to achieve my vision for my life.",
+"I think positively about setting goals and making sure my needs are met.",
+"I use rewards and consequences to keep myself focused. For example, if I finish my report on time, I allow myself to take a coffee break.",
+"I believe that if I work hard and apply my abilities and talents, I will be successful.",
+"I worry about deadlines and getting things done, which causes stress and anxiety.",
+"When an unexpected event threatens or jeopardizes my goal, I tend to walk away, set a different goal, and move in a new direction.",
+"When I come up with a really good idea, I am surprised by my creativity. I figure it is my lucky day, and caution myself not to get used to the feeling.",
+"I tend to do the minimum amount of work necessary to keep others satisfied.",
+"I tend to worry about why I won't reach my goals, and I often focus on why something probably won't work.",
+"I create a vivid and powerful vision of my future success before embarking on a new goal."
+];
+
+function build(){
+[
+["start","Start"],
+["stop","Stop"],
+["complete","Complete"]
+].forEach(([id,name])=>{
+for(let i=1;i<=5;i++){
+let d=document.createElement("div");
+d.className="item";
+d.innerHTML=`<label>${name} ${i}</label><input data-list="${id}" data-index="${i-1}" placeholder="Enter your answer">`;
+document.getElementById(id).appendChild(d);
+}
+});
+
+statements.forEach((q,i)=>{
+let d=document.createElement("div");
+d.className="question";
+d.innerHTML=`<p><b>${i+1}.</b> ${q}</p>`+
+[1,2,3,4,5].map(n=>
+`<label class="radio">${n}<input type="radio" name="q${i}" value="${n}"></label>`
+).join("");
+document.getElementById("questions").appendChild(d);
+});
+}
+
+function readDB(){
+try{return JSON.parse(localStorage.getItem(KEY)||"{}")}
+catch(e){return {}}
+}
+
+function collect(){
+let d={};
+fields.forEach(id=>d[id]=document.getElementById(id).value);
+
+d.lists={};
+document.querySelectorAll("[data-list]").forEach(e=>{
+d.lists[e.dataset.list]??=[];
+d.lists[e.dataset.list][+e.dataset.index]=e.value;
+});
+
+d.scores=statements.map((_,i)=>{
+let e=document.querySelector(`input[name="q${i}"]:checked`);
+return e?+e.value:null;
+});
+
+d.updated=new Date().toISOString();
+return d;
+}
+
+function save(){
+let db=readDB();
+db[member.value]=collect();
+localStorage.setItem(KEY,JSON.stringify(db));
+updateSummary();
+alert("Answers saved for "+member.value+" in this browser.");
+}
+
+function load(){
+let d=readDB()[member.value]||{};
+
+fields.forEach(id=>{
+document.getElementById(id).value=d[id]||"";
+});
+
+document.querySelectorAll("[data-list]").forEach(e=>{
+e.value=(d.lists?.[e.dataset.list]||[])[+e.dataset.index]||"";
+});
+
+statements.forEach((_,i)=>{
+document.querySelectorAll(`input[name="q${i}"]`).forEach(e=>{
+e.checked=+(d.scores||[])[i]===+e.value;
+});
+});
+
+score();
+updateSummary();
+}
+
+function score(){
+let vals=statements.map((_,i)=>{
+let e=document.querySelector(`input[name="q${i}"]:checked`);
+return e?+e.value:null;
+});
+
+let done=vals.filter(v=>v!==null);
+let total=done.reduce((a,b)=>a+b,0);
+let band=done.length<12?"In progress":
+total>=44?"High":total>=28?"Moderate":"Low";
+
+document.getElementById("total").textContent=done.length?total+" / 60":"0 / 60";
+document.getElementById("band").textContent=done.length?band:"Not scored";
+document.getElementById("answered").textContent=done.length+" / 12";
+updateSummary();
+}
+
+function escapeHTML(s){
+return String(s||"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+}
+
+function updateSummary(){
+let d=collect();
+let vals=d.scores.filter(v=>v!==null);
+let total=vals.reduce((a,b)=>a+b,0);
+let band=vals.length<12?"In progress":
+total>=44?"High":total>=28?"Moderate":"Low";
+
+document.getElementById("sGoal").textContent=d.goal.trim()?"Added":"Not added";
+document.getElementById("sMotivation").textContent=d.strong&&d.weak?"Added":"Not added";
+document.getElementById("sScore").textContent=vals.length?total+"/60":"Not scored";
+
+document.getElementById("report").innerHTML=`
+<p><b>Member:</b> ${escapeHTML(member.value)}</p>
+<p><b>Important goal:</b> ${escapeHTML(d.goal||"Not entered")}</p>
+<p><b>Strongest motivation:</b> ${escapeHTML(d.strong||"Not entered")}</p>
+<p><b>Weakest motivation:</b> ${escapeHTML(d.weak||"Not entered")}</p>
+<p><b>Questionnaire score:</b> ${vals.length?total+"/60 — "+band+" ("+vals.length+"/12 answered)":"Not scored"}</p>
+<p><b>First action:</b> ${escapeHTML(d.first||"Not entered")}</p>
+<p><b>Review date:</b> ${escapeHTML(d.review||"Not set")}</p>
+<p><b>Last updated:</b> ${d.updated?escapeHTML(new Date(d.updated).toLocaleString()):"Not saved yet"}</p>`;
+}
+
+function openTab(id){
+document.querySelectorAll("section").forEach(e=>e.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+if(id==="summary")updateSummary();
+document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function download(data,name){
+let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download=name;
+a.click();
+setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function exportOne(){
+download({member:member.value,assessment:collect()},"member_assessment.json");
+}
+
+function exportAll(){
+download(readDB(),"all_motivation_assessments.json");
+}
+
+function importJSON(e){
+let f=e.target.files[0];
+if(!f)return;
+let reader=new FileReader();
+reader.onload=()=>{
+try{
+let x=JSON.parse(reader.result);
+let db=readDB();
+if(x.member&&x.assessment)db[x.member]=x.assessment;
+else Object.assign(db,x);
+localStorage.setItem(KEY,JSON.stringify(db));
+load();
+alert("Data imported successfully.");
+}catch(err){alert("This file is not valid assessment JSON.");}
+e.target.value="";
+};
+reader.readAsText(f);
+}
+
+function clearData(){
+if(!confirm("Clear the selected member's saved answers from this browser?"))return;
+let d=readDB();
+delete d[member.value];
+localStorage.setItem(KEY,JSON.stringify(d));
+load();
+}
+
+const member=document.getElementById("member");
+member.addEventListener("change",load);
+document.getElementById("questions").addEventListener("change",score);
+
+build();
+document.getElementById("date").value=new Date().toISOString().slice(0,10);
+load();
 </script>
 </body>
-</html>
+  </html>
